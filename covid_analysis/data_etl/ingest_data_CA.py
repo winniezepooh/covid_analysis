@@ -2,21 +2,19 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-source_link = "https://health-infobase.canada.ca/src/data/covidLive/covid19.csv"
-data = pd.read_csv(source_link)
+from covid_analysis.data_etl.covid_constants import CanadaCovidConstants as constants
 
-data["date"] = pd.to_datetime(data['date'], format='%d-%m-%Y')
+data = pd.read_csv(constants.source_link)
 
-provinces = data['prname'].unique()  
-provinces = ['Ontario', 'British Columbia', 'Quebec', 'Alberta', 'Saskatchewan', 'Manitoba',
-       'New Brunswick', 'Newfoundland and Labrador', 'Nova Scotia',
-       'Prince Edward Island', 'Yukon', 'Northwest Territories']
+data["date"] = pd.to_datetime(data['date'], format=constants.date_format)
+
+
 fig, a = plt.subplots(4,3)
 i = 0
 for y in range(0,4):
     for x in range(0,3):
     
-        province = provinces[i]
+        province = constants.provinces[i]
         print(province)
         df = data[data['prname']==province]
         df = df.sort_values('date')  
@@ -24,5 +22,5 @@ for y in range(0,4):
         a[y][x].plot(df['date'], df['numconf_change'])
         a[y][x].set_title(province)
         i = i + 1
-    
+plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.5)
 plt.show()
