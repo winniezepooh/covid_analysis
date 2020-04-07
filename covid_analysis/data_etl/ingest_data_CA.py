@@ -8,7 +8,6 @@ data = pd.read_csv(constants.source_link)
 
 data["date"] = pd.to_datetime(data['date'], format=constants.date_format)
 
-
 fig, a = plt.subplots(4,3)
 i = 0
 for y in range(0,4):

@@ -10,6 +10,7 @@ class GlobalCovidConstants:
 
 class CanadaCovidConstants:
     source_link = "https://health-infobase.canada.ca/src/data/covidLive/covid19.csv"
+    date_format = "%d-%m-%Y"
     provinces = ['Ontario', 'British Columbia', 'Quebec', 'Alberta', 'Saskatchewan', 'Manitoba',
        'New Brunswick', 'Newfoundland and Labrador', 'Nova Scotia',
        'Prince Edward Island', 'Yukon', 'Northwest Territories']
