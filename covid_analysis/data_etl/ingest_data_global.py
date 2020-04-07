@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from covid_analysis.data_etl.covid_constants import GlobalCovidConstants as constants
 
 
-class CovidDataClass:
+class CovidGlobalDataClass:
 
     def ingest_daily_data(self):
         daily_cases_df = pd.DataFrame()
