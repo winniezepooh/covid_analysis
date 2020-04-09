@@ -16,6 +16,7 @@ class CovidCaDataClass:
         data_df = pd.read_csv(constants.source_link)
         data_df["date"] = pd.to_datetime(data_df["date"], format=constants.date_format)
         #adding log for confirmed cases
+        data_df.numconf = pd.to_numeric(data_df.numconf) 
         data_df["numconf_log"] = np.log(data_df["numconf"])
         return data_df
 
