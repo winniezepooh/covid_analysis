@@ -29,4 +29,5 @@ class CanadaCovidConstants:
         "Prince Edward Island",
         "Yukon",
         "Northwest Territories",
+        #"Canada"
     ]
