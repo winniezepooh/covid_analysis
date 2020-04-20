@@ -21,11 +21,28 @@ class CovidGlobalDataClass:
                     date=day.strftime(constants.date_format)
                 )
             )
+            #Handling the different datasets that come in 
+            if day < constants.data_change_date:
+                if len(date_data_df.columns) == 6:
+                    date_data_df.columns = ["Province_State", "Country_Region", "Last_Update", "Confirmed", "Deaths", "Recovered"]
+                else:
+                    date_data_df.columns = ["Province_State", "Country_Region", "Last_Update", "Confirmed", "Deaths", "Recovered", "Lat", "Long_"]
+
             # adding date of the recording
-            date_data_df["date"] = datetime.now().strftime(constants.date_format)
+            date_data_df["Date"] = day
             daily_cases_df = daily_cases_df.append(date_data_df)
 
             day = day + timedelta(days=1)
+
+        #handling inconsistently named countries/regions
+        daily_cases_df.loc[(daily_cases_df["Country_Region"]=="Taiwan*"),"Country_Region"] = "Taiwan"
+        daily_cases_df.loc[(daily_cases_df["Country_Region"]=="Hong Kong SAR"),"Country_Region"] = "Hong Kong"
+        daily_cases_df.loc[(daily_cases_df["Country_Region"]=="Macao SAR"),"Country_Region"] = "Macau"
+        daily_cases_df.loc[(daily_cases_df["Country_Region"]=="Viet Nam"),"Country_Region"] = "Vietnam"
+        daily_cases_df.loc[(daily_cases_df["Country_Region"]=="Korea, South"),"Country_Region"] = "South Korea"
+        daily_cases_df.loc[(daily_cases_df["Country_Region"]=="Iran (Islamic Republic of)"),"Country_Region"] = "Iran"
+        daily_cases_df.loc[(daily_cases_df["Country_Region"]=="Gambia, The"),"Country_Region"] = "Gambia"
+        daily_cases_df.loc[(daily_cases_df["Country_Region"]=="Bahamas, The"),"Country_Region"] = "Bahamas"
 
         return daily_cases_df
 
